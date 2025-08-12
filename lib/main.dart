@@ -5,7 +5,7 @@ import 'pointage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'create_page.dart';
 import 'PasswordSetupPage.dart';
-
+import 'sortie.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
      '/entree': (context) => EntreePage() ,
      '/pointage': (context) => const PointagePage(),
         '/create': (context) => const CreatePage(),
+         '/sortie': (context) => const SortiePage(),
         
       },
     );

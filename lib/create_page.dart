@@ -108,12 +108,20 @@ void dispose() {
         setState(() {
           errorMessage = response.data['error'] ?? "Erreur inconnue";
         });
-      }
+      }else {
+  setState(() {
+    errorMessage = "Erreur HTTP: ${response.statusCode}";
+  });
+}
+
+
     } catch (e) {
-      print(e.toString());
+     print('Erreur réseau capturée: $e');
      setState(() {
     errorMessage = "Veuillez verifier le connexion";
-    hasCalledConfirm = false; // 👈 aussi ici
+    hasCalledConfirm = false;
+      isLoading = false;       // stop loading ici aussi
+ // 👈 aussi ici
   });
     }
 
@@ -126,8 +134,8 @@ void dispose() {
   final bool hasError = errorMessage != null;
 
 final defaultPinTheme = PinTheme(
-  width: 60,
-  height: 60,
+  width: 45,
+  height: 45,
   textStyle: const TextStyle(fontSize: 24, color: Colors.white),
   decoration: BoxDecoration(
     color: Colors.grey[900],
@@ -164,32 +172,78 @@ final defaultPinTheme = PinTheme(
           ),
           const SizedBox(height: 20),
 
-          const Text(
-            'Merci de saisir le numéro de votre matricule',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          Center(
-            child: Pinput(
-              length: 4,
-              controller: _pinController,
-              defaultPinTheme: defaultPinTheme,
-        focusedPinTheme: defaultPinTheme,
-       readOnly: true, // Empêche le clavier système
-              separatorBuilder: (index) =>
-                  const SizedBox(width: 22), // 👈 ESPACEMENT
+    Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Flexible(
+        child: Text(
+          'Merci de saisir le numéro de votre matricule',
+          style: TextStyle(color: Colors.white70, fontSize: 16),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ],
+  ),
+),
+        const SizedBox(height: 10),
+   Center(
+  child: ConstrainedBox(
+    constraints: BoxConstraints(maxWidth: 300), // limite la largeur max ici
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        final maxWidth = constraints.maxWidth;
+
+        const spacing = 16.0;
+        final pinLength = 4;
+        final totalSpacing = spacing * (pinLength - 1);
+        final boxWidth = (maxWidth - totalSpacing) / pinLength;
+
+        final pinTheme = PinTheme(
+          width: boxWidth.clamp(30, 50), // tu peux baisser encore ici
+          height: boxWidth.clamp(30, 50),
+          textStyle: TextStyle(fontSize: boxWidth.clamp(18, 24) ,  color: Colors.white,  // <-- Ici
+),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: errorMessage != null ? Colors.red : Color.fromARGB(255, 51, 94, 143),
+              width: 2,
             ),
           ),
-           if (errorMessage != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                errorMessage!,
-                style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
-              ),
-            ),
-          const Spacer(),
+        );
+
+        return Pinput(
+          length: pinLength,
+          controller: _pinController,
+          defaultPinTheme: pinTheme,
+          focusedPinTheme: pinTheme,
+          readOnly: true,
+          separatorBuilder: (index) => SizedBox(width: spacing),
+        );
+      },
+    ),
+  ),
+),
+     if (errorMessage != null)
+    Visibility(
+  visible: errorMessage != null,
+  maintainSize: true,
+  maintainAnimation: true,
+  maintainState: true,
+  child: Padding(
+    padding: const EdgeInsets.only(top: 8),
+    child: Text(
+      errorMessage ?? '',
+      style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+    ),
+  ),
+),
+        const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SizedBox(
@@ -215,7 +269,7 @@ final defaultPinTheme = PinTheme(
                         ),
                       )
                     : const Text(
-                        "Valider",
+                        "",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
               ),
@@ -313,4 +367,5 @@ final defaultPinTheme = PinTheme(
       ),
     );
   }
+
 }

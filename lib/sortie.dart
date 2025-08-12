@@ -8,14 +8,14 @@ import 'package:image_picker/image_picker.dart';
 import 'dio_client.dart';
 import 'package:lottie/lottie.dart';
 
-class EntreePage extends StatefulWidget {
-  const EntreePage({super.key});
+class SortiePage extends StatefulWidget {
+  const SortiePage({super.key});
 
   @override
-  State<EntreePage> createState() => _EntreePageState();
+  State<SortiePage> createState() => _SortiePageState();
 }
 
-class _EntreePageState extends State<EntreePage>
+class _SortiePageState extends State<SortiePage>
     with SingleTickerProviderStateMixin {
   CameraController? _cameraController;
   late AnimationController _animationController;
@@ -267,7 +267,7 @@ class _EntreePageState extends State<EntreePage>
       });
 
       final response = await dio.post(
-        '/pointage/facial_client',
+        '/pointage/facial_client_sortie',
         data: formData,
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
@@ -311,7 +311,7 @@ class _EntreePageState extends State<EntreePage>
 
       String errorMsg = dioError.response != null
           ? "${dioError.response?.data['error']}"
-          : "Erreur de connexion ou timeout : Veuillez vérifier la connexion";
+          : "Erreur de connexion : Veuillez vérifier la connexion";
 
       await _showErrorDialog(context, errorMsg);
     Navigator.of(context).pop(); // revient à la page précédente
