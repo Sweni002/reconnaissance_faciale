@@ -3,6 +3,7 @@
 <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:label="Pointage"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">

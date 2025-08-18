@@ -15,7 +15,7 @@ class DioClient {
 
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.18.50:5000/api', // adapte ici
+        baseUrl:'http://127.0.0.1:5000/api', // adapte ici
         headers: {'Content-Type': 'application/json'},
       ),
     );

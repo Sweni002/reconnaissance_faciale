@@ -109,13 +109,13 @@ bool _obscureText = true;
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 210,
+                    height: 230,
                     width: double.infinity,
                     child: Image.asset('assets/v2.jpg', fit: BoxFit.cover),
                   ),
 
                   Transform.translate(
-                    offset: const Offset(0, -55),
+                    offset: const Offset(0, -50),
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -151,7 +151,7 @@ bool _obscureText = true;
                             margin: const EdgeInsets.only(bottom: 35, top: 5),
                             child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 30,
+                                horizontal: 10,
                               ),
                               leading: const Icon(
                                 Icons.email,
@@ -177,7 +177,7 @@ bool _obscureText = true;
                             margin: const EdgeInsets.only(bottom: 25),
                             child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 30,
+                                horizontal: 10,
                               ),
                               leading: const Icon(
                                 Icons.lock_clock_rounded,
@@ -211,7 +211,7 @@ bool _obscureText = true;
                             ),
                           ),
 
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 20),
 
                           SizedBox(
                             width: double.infinity,
@@ -224,7 +224,7 @@ bool _obscureText = true;
                                   94,
                                   143,
                                 ),
-                                padding: const EdgeInsets.all(22),
+                                padding: const EdgeInsets.all(19),
                                 elevation: 8,
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(

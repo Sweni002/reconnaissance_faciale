@@ -314,14 +314,14 @@ class _EntreePageState extends State<EntreePage>
           : "Erreur de connexion ou timeout : Veuillez vérifier la connexion";
 
       await _showErrorDialog(context, errorMsg);
-    Navigator.of(context).pop(); // revient à la page précédente
+    Navigator.of(context).pop(); 
     } catch (e) {
       setState(() {
-        _status = 'error'; // affiche animation erreur
+        _status = 'error'; 
       });
 
       await _showErrorDialog(context, e.toString());
-    Navigator.of(context).pop(); // revient à la page précédente
+    Navigator.of(context).pop(); 
     }
   }
 
