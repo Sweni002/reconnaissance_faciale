@@ -432,7 +432,7 @@ if (response.statusCode == 200) {
                     radius: 20,
                     backgroundImage: imagePersonnel != null
                         ? NetworkImage(
-                            'http://127.0.0.1:5000/uploads/${imagePersonnel!}',
+                            'http://192.168.88.60/uploads/${imagePersonnel!}',
                           )
                         : null,
                     child: imagePersonnel == null
